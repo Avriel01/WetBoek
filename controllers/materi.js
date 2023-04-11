@@ -62,10 +62,10 @@ exports.delete = async (req, res) => {
   try {
     const materi = await Materi.findByPk(id, { rejectOnEmpty: true });
 
-    quiz.destroy();
+    materi.destroy();
 
     res.json({
-      massage: "materi deleted succesfull",
+      massage: "quiz deleted succesfull",
     });
   } catch (error) {
     res.status(500).json({
@@ -103,6 +103,19 @@ exports.getByCategoryId = async (req, res) => {
   });
   res.json({
     massage: `materies retrieved successfully with categoryid=${id}`,
+    data: materies,
+  });
+};
+
+exports.getByPasal = async (req, res) => {
+  const pasal = req.params.pasal;
+  const materies = await Materi.findAll({
+    where: {
+      pasal: pasal,
+    },
+  });
+  res.json({
+    massage: `materies retrieved successfully with pasal=${pasal}`,
     data: materies,
   });
 };
